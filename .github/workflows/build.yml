@@ -1,0 +1,19 @@
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+jobs:
+  pyinstaller-build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Create Executable
+        uses: sayyid5416/pyinstaller@v1
+        with:
+          python_ver: '3.11'
+          spec: torfGUI/gui.py
+          requirements: requirements.txt
+          upload_exe_with_name: torf-gui
+          options: '--onefile, --name "torf-gui", --windowed,'
