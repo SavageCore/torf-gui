@@ -2,6 +2,8 @@
 torf-gui
 ==============
 
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/SavageCore/torf-gui/build.yml)
+
 A quick and dirty port of `dottorrent-gui <https://github.com/kz26/dottorrent-gui>`_ for
 `torf <https://github.com/rndusr/torf>`_
 
@@ -36,15 +38,22 @@ Windows
 
 Binary releases of stable versions for 64-bit Windows can be found at
 `https://github.com/SavageCore/torf-gui/releases <https://github.com/SavageCore/torf-gui/releases>`_.
-Extract to a folder and run ``torf_gui.exe``. You may need to download and install the `Microsoft Visual C++ Redistributable for Visual Studio 2015 <https://www.microsoft.com/en-us/download/details.aspx?id=48145>`_.
+Download and run ``torf-gui-win64.exe``. You may need to download and install the `Microsoft Visual C++ Redistributable for Visual Studio 2015 <https://www.microsoft.com/en-us/download/details.aspx?id=48145>`_.
 
-Linux and Mac OS X
+MacOS
+-------
+Binary releases of stable versions for 64-bit Windows can be found at
+`https://github.com/SavageCore/torf-gui/releases <https://github.com/SavageCore/torf-gui/releases>`_.
+Download and extract ``torf-gui-macOS.zip``. You may need to allow the app to run in your security settings.
+
+Linux
 ------------------
 
 **Requirements**
 
 * Python 3.3+
 * PyQt5 5.7+
+* libxcb-xinerama0 (Debian/Ubuntu)
 
 Latest stable release: ``pip install torf-gui``
 
