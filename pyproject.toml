@@ -15,7 +15,7 @@ exclude = [
     "torf_gui.egg-info",
 ]
 target-version = "py311"
-select = ["E","W","F","B","I","C90","N801", "N999", "PT"]
+select = ["E","W","F","B","I","C90","N801", "N999", "PT", "UP"]
 
 [tool.ruff.per-file-ignores]
 "./torf_gui/__init__.py" = ["F401"]

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Form implementation generated from reading ui file 'about.ui'
 #
 # Created by: PyQt5 UI code generator 5.9
@@ -9,7 +7,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class UiAboutDialog(object):
+class UiAboutDialog:
     def setupUi(self, AboutDialog):
         AboutDialog.setObjectName("AboutDialog")
         AboutDialog.setWindowModality(QtCore.Qt.WindowModal)

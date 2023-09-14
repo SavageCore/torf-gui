@@ -14,10 +14,8 @@ from PyQt5 import QtCore, QtWidgets
 from torf_gui import UiAboutDialog, UiMainWindow, __version__
 
 PROGRAM_NAME = "torf-gui"
-PROGRAM_NAME_VERSION = "{} {}".format(PROGRAM_NAME, __version__)
-CREATOR = "torf-gui/{} (https://github.com/SavageCore/torf-gui)".format(
-    __version__
-)
+PROGRAM_NAME_VERSION = f"{PROGRAM_NAME} {__version__}"
+CREATOR = f"torf-gui/{__version__} (https://github.com/SavageCore/torf-gui)"
 
 PIECE_SIZES = [None] + [2**i for i in range(14, 25)]
 
@@ -271,8 +269,8 @@ class TorfGUI(UiMainWindow):
         qdlg = QtWidgets.QDialog()
         ad = UiAboutDialog()
         ad.setupUi(qdlg)
-        ad.programVersionLabel.setText("version {}".format(__version__))
-        ad.dtVersionLabel.setText("(torf {})".format(torf.__version__))
+        ad.programVersionLabel.setText(f"version {__version__}")
+        ad.dtVersionLabel.setText(f"(torf {torf.__version__})")
         qdlg.exec_()
 
     def inputModeToggle(self):
@@ -358,9 +356,7 @@ class TorfGUI(UiMainWindow):
         ptail = os.path.split(self.torrent.path)[1]
         if self.inputMode == "file":
             self._statusBarMsg(
-                "{}: {}".format(
-                    ptail, humanfriendly.format_size(t_info[0], binary=True)
-                )
+                f"{ptail}: {humanfriendly.format_size(t_info[0], binary=True)}"
             )
         else:
             self._statusBarMsg(
@@ -391,7 +387,7 @@ class TorfGUI(UiMainWindow):
 
     def updatePieceCountLabel(self, ps, pc):
         ps = humanfriendly.format_size(ps, binary=True)
-        self.pieceCountLabel.setText("{} pieces @ {} each".format(pc, ps))
+        self.pieceCountLabel.setText(f"{pc} pieces @ {ps} each")
 
     def privateTorrentChanged(self, state):
         if getattr(self, "torrent", None):
@@ -493,11 +489,11 @@ class TorfGUI(UiMainWindow):
 
     def _progress_update(self, fn, pc, pt):
         fn = os.path.split(fn)[1]
-        msg = "{} ({}/{})".format(fn, pc, pt)
+        msg = f"{fn} ({pc}/{pt})"
         self.updateProgress(msg, int(round(100 * pc / pt)))
 
     def _progress_update_batch(self, fn, tc, tt):
-        msg = "({}/{}) {}".format(tc, tt, fn)
+        msg = f"({tc}/{tt}) {fn}"
         self.updateProgress(msg, int(round(100 * tc / tt)))
 
     def updateProgress(self, statusMsg, pv):
@@ -583,9 +579,7 @@ class TorfGUI(UiMainWindow):
             except Exception as e:
                 self._showError(str(e))
                 return
-            self._statusBarMsg(
-                "Profile {} loaded".format(os.path.split(fn)[1])
-            )
+            self._statusBarMsg(f"Profile {os.path.split(fn)[1]} loaded")
 
     def reset(self):
         self._statusBarMsg("")
