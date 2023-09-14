@@ -1,7 +1,11 @@
 # torf-gui
 
+
 [![GitHub Build Status](https://img.shields.io/github/actions/workflow/status/SavageCore/torf-gui/build.yml?style=flat-square&logo=pytest)](https://github.com/SavageCore/torf-gui/actions/workflows/build.yml)
-[![GitHub Lint Status](https://img.shields.io/github/actions/workflow/status/SavageCore/torf-gui/lint.yml?style=flat-square&logo=python&label=lint)](https://github.com/SavageCore/torf-gui/actions/workflows/lint.yml)
+[![Code Style: black](https://img.shields.io/badge/code%20style-black-black)](https://pypi.org/project/black/)
+
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/torf-gui?style=flat-square&logo=pypi)](https://pypi.org/project/torf-gui/)
+[![PyPI - Version](https://img.shields.io/pypi/v/torf-gui?style=flat-square)](https://pypi.org/project/torf-gui/)
 
 
 A quick and dirty port of
@@ -72,3 +76,5 @@ excecutable.
 
 © 2023 Oliver Sayers. Made available under the terms of the [GNU General
 Public License v3](http://choosealicense.com/licenses/gpl-3.0/).
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E6P7VIQ)
