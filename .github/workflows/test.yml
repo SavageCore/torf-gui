@@ -1,0 +1,29 @@
+name: pytest
+
+'on':
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+          DISPLAY: ':99.0'
+    steps:
+        - uses: actions/checkout@v4
+        - name: Set up Python 3.x
+          uses: actions/setup-python@v4
+          with:
+            python-version: 3.x
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install .
+            pip install pytest-qt==4.2.0
+        # https://pytest-qt.readthedocs.io/en/latest/troubleshooting.html#github-actions
+        - name: Install libxkbcommon-x11-0 and other requirements
+          run: |
+            sudo apt install libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 x11-utils
+            /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1920x1200x24 -ac +extension GLX
+        - name: Run tests
+          run: |
+            pytest tests/gui.py
