@@ -1,7 +1,21 @@
 [tool.black]
 line-length = 79
 target-version = ['py311']
-[tool.isort]
-profile = "black"
-multi_line_output = 3
-py_version = 311
+
+[tool.ruff]
+line-length = 79
+exclude = [
+    ".pytest_cache",
+    ".github",
+    ".vscode",
+    ".git",
+    "build",
+    "dist",
+    "venv",
+    "torf_gui.egg-info",
+]
+target-version = "py311"
+select = ["E","W","F","B","I","C90","N801", "N999"]
+
+[tool.ruff.per-file-ignores]
+"./torf_gui/__init__.py" = ["F401"]

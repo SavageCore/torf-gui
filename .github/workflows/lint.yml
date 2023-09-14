@@ -19,6 +19,6 @@ jobs:
       - name: Check formatting with black
         run: |
           black --check .
-      - name: Lint with flake8
+      - name: Lint with ruff
         run: |
-          flake8
+          ruff .

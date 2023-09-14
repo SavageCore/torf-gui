@@ -15,13 +15,13 @@ jobs:
           - os: macos-latest
             TARGET: macos
             CMD_BUILD: >
-                pyinstaller -F -w -n torf-gui torfGUI/gui.py &&
+                pyinstaller -F -w -n torf-gui torf_gui/gui.py &&
                 cd dist/ &&
                 zip -r9 torf-gui-macOS torf-gui.app/
             OUT_FILE_NAME: torf-gui-macOS.zip
           - os: windows-latest
             TARGET: windows
-            CMD_BUILD: pyinstaller -F -w -n torf-gui-win64 torfGUI/gui.py
+            CMD_BUILD: pyinstaller -F -w -n torf-gui-win64 torf_gui/gui.py
             OUT_FILE_NAME: torf-gui-win64.exe
     steps:
     - uses: actions/checkout@v4

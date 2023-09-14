@@ -11,7 +11,7 @@ import qdarktheme
 import torf
 from PyQt5 import QtCore, QtWidgets
 
-from torfGUI import Ui_AboutDialog, Ui_MainWindow, __version__
+from torf_gui import UiAboutDialog, UiMainWindow, __version__
 
 PROGRAM_NAME = "torf-gui"
 PROGRAM_NAME_VERSION = "{} {}".format(PROGRAM_NAME, __version__)
@@ -124,7 +124,7 @@ class CreateTorrentBatchQThread(QtCore.QThread):
                     t.write(os.path.join(self.save_dir, sfn), overwrite=True)
 
 
-class TorfGUI(Ui_MainWindow):
+class TorfGUI(UiMainWindow):
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)
 
@@ -269,7 +269,7 @@ class TorfGUI(Ui_MainWindow):
 
     def showAboutDialog(self):
         qdlg = QtWidgets.QDialog()
-        ad = Ui_AboutDialog()
+        ad = UiAboutDialog()
         ad.setupUi(qdlg)
         ad.programVersionLabel.setText("version {}".format(__version__))
         ad.dtVersionLabel.setText("(torf {})".format(torf.__version__))

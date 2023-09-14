@@ -1,13 +1,13 @@
 from setuptools import find_packages, setup
 
-with open("torfGUI/version.py") as f:
+with open("torf_gui/version.py") as f:
     exec(f.read())
 
 setup(
     name="torf-gui",
-    version=__version__,
+    version=__version__,  # noqa: F821
     packages=find_packages(),
-    entry_points={"gui_scripts": ["torf-gui = torfGUI.gui:main"]},
+    entry_points={"gui_scripts": ["torf-gui = torf_gui.gui:main"]},
     install_requires=[
         "torf>=4.2.2",
         "humanfriendly>=10.0",
@@ -28,6 +28,7 @@ setup(
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: End Users/Desktop",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",

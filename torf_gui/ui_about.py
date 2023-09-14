@@ -9,7 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_AboutDialog(object):
+class UiAboutDialog(object):
     def setupUi(self, AboutDialog):
         AboutDialog.setObjectName("AboutDialog")
         AboutDialog.setWindowModality(QtCore.Qt.WindowModal)
