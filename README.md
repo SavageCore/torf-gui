@@ -1,6 +1,8 @@
 # torf-gui
 
-![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/SavageCore/torf-gui/build.yml)
+[![GitHub Build Status](https://img.shields.io/github/actions/workflow/status/SavageCore/torf-gui/build.yml?style=flat-square&logo=pytest)](https://github.com/SavageCore/torf-gui/actions/workflows/build.yml)
+[![GitHub Lint Status](https://img.shields.io/github/actions/workflow/status/SavageCore/torf-gui/lint.yml?style=flat-square&logo=python&label=lint)](https://github.com/SavageCore/torf-gui/actions/workflows/lint.yml)
+
 
 A quick and dirty port of
 [dottorrent-gui](https://github.com/kz26/dottorrent-gui) for
