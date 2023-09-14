@@ -109,9 +109,6 @@ class CreateTorrentBatchQThread(QtCore.QThread):
                 )
                 try:
                     self.success = t.generate(callback=callback)
-                # ignore empty inputs
-                except torf.exceptions.EmptyInputException:
-                    continue
                 except Exception as exc:
                     self.onError.emit(str(exc))
                     return
