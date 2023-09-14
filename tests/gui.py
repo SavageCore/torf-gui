@@ -1,8 +1,9 @@
 import pytest
 from PyQt5 import QtCore, QtWidgets
 from pytestqt.qtbot import QtBot
-from torfGUI import __version__
-from torfGUI.gui import TorfGUI
+
+from torf_gui import __version__
+from torf_gui.gui import TorfGUI
 
 PROGRAM_NAME = "torf-gui"
 PROGRAM_NAME_VERSION = "{} {}".format(PROGRAM_NAME, __version__)
