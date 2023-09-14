@@ -15,13 +15,13 @@ setup(
 
     # Project uses reStructuredText, so ensure that the docutils get
     # installed or upgraded on the target machine
-    install_requires=['torf>=4.2.2', 'humanfriendly', 'PyQt5>=5.7', 'pyqtdarktheme>=2.1.0'],
+    install_requires=['torf>=4.2.2', 'humanfriendly>=10.0', 'PyQt5>=5.15.9', 'pyqtdarktheme>=2.1.0'],
 
     # metadata for upload to PyPI
     author="Oliver Sayers",
     author_email="talk@savagecore.uk",
     description="An advanced GUI torrent file creator with batch functionality, powered by PyQt and torf.",
-    long_description=open('README.rst').read(),
+    long_description=open('README.md').read(),
     keywords="bittorrent torrent",
     url="https://github.com/SavageCore/torf-gui",   # project home page, if any
 
@@ -30,9 +30,11 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: End Users/Desktop',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6'
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
     ]
 )
