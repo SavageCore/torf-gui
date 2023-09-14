@@ -18,7 +18,7 @@ jobs:
           run: |
             python -m pip install --upgrade pip
             pip install .
-            pip install pytest-qt==4.2.0
+            pip install pytest-qt>=4.2.0
         # https://pytest-qt.readthedocs.io/en/latest/troubleshooting.html#github-actions
         - name: Install libxkbcommon-x11-0 and other requirements
           run: |

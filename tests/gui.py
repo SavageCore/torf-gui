@@ -6,10 +6,10 @@ from torf_gui import __version__
 from torf_gui.gui import TorfGUI
 
 PROGRAM_NAME = "torf-gui"
-PROGRAM_NAME_VERSION = "{} {}".format(PROGRAM_NAME, __version__)
+PROGRAM_NAME_VERSION = f"{PROGRAM_NAME} {__version__}"
 
 
-@pytest.fixture
+@pytest.fixture()
 def app(qtbot: QtBot):
     # Setup
     torf = TorfGUI()
@@ -36,7 +36,7 @@ def app(qtbot: QtBot):
         f.write("test")
 
     # Run
-    yield torf
+    return torf
 
 
 # GUI loads
