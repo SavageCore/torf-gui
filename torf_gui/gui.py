@@ -137,12 +137,14 @@ class TorfGUI(Ui_MainWindow):
 
         self.torrent = None
         self.MainWindow = MainWindow
+        self.mediainfoLocationEdit = None
 
         self.actionImportProfile.triggered.connect(self.import_profile)
         self.actionExportProfile.triggered.connect(self.export_profile)
         self.actionSet_location.triggered.connect(
             self.showMediainfoLocationDialog
         )
+        self.actionToggleMediainfo.toggled.connect(self.toggle_mediainfo)
         self.actionAbout.triggered.connect(self.showAboutDialog)
         self.actionQuit.triggered.connect(self.MainWindow.close)
 
@@ -241,6 +243,12 @@ class TorfGUI(Ui_MainWindow):
             settings.value("history/last_output_dir") or None
         )
 
+        mediainfo_enabled = (
+            settings.value("mediainfo/enabled") == "true" or False
+        )
+        if mediainfo_enabled:
+            self.actionToggleMediainfo.setChecked(mediainfo_enabled)
+
     def saveSettings(self):
         settings = self.getSettings()
         settings.setValue("input/mode", self.inputMode)
@@ -268,17 +276,21 @@ class TorfGUI(Ui_MainWindow):
         if self.last_output_dir:
             settings.setValue("history/last_output_dir", self.last_output_dir)
 
-        mediainfo_location = self.mediainfoLocationEdit.text()
+        if self.mediainfoLocationEdit is not None:
+            mediainfo_location = self.mediainfoLocationEdit.text()
 
-        # If self.mediainfoLocationEdit.text() is empty,
-        # remove mediainfo location from settings
-        if not mediainfo_location:
-            settings.remove("mediainfo/location")
+            # If self.mediainfoLocationEdit.text() is empty,
+            # remove mediainfo location from settings
+            if not mediainfo_location:
+                settings.remove("mediainfo/location")
 
-        # If self.mediainfoLocationEdit.text() is not empty,
-        # and a valid file path, set mediainfo location in settings
-        if mediainfo_location and os.path.isfile(mediainfo_location):
-            settings.setValue("mediainfo/location", mediainfo_location)
+            # If self.mediainfoLocationEdit.text() is not empty,
+            # and a valid file path, set mediainfo location in settings
+            if mediainfo_location and os.path.isfile(mediainfo_location):
+                settings.setValue("mediainfo/location", mediainfo_location)
+
+        mediainfo_enabled = self.actionToggleMediainfo.isChecked()
+        settings.setValue("mediainfo/enabled", mediainfo_enabled)
 
     def _statusBarMsg(self, msg):
         self.MainWindow.statusBar().showMessage(msg)
@@ -660,6 +672,13 @@ class TorfGUI(Ui_MainWindow):
         t_info.append(torrent.pieces)
         t_info.append(torrent.piece_size)
         return t_info
+
+    def toggle_mediainfo(self):
+        settings = self.getSettings()
+
+        settings.setValue(
+            "mediainfo/enabled", self.actionToggleMediainfo.isChecked()
+        )
 
 
 def appClose(ui):

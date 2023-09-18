@@ -486,7 +486,7 @@
       <string>Mediainfo</string>
      </property>
      <addaction name="actionSet_location"/>
-     <addaction name="actionToggle"/>
+     <addaction name="actionToggleMediainfo"/>
     </widget>
     <addaction name="menuMediainfo"/>
    </widget>
@@ -532,12 +532,12 @@
     <string>Set location</string>
    </property>
   </action>
-  <action name="actionToggle">
+  <action name="actionToggleMediainfo">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Toggle</string>
+    <string>Enable</string>
    </property>
   </action>
  </widget>
