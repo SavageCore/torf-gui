@@ -477,7 +477,20 @@
     </property>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <widget class="QMenu" name="menuMediainfo">
+     <property name="title">
+      <string>Mediainfo</string>
+     </property>
+     <addaction name="actionSet_location"/>
+    </widget>
+    <addaction name="menuMediainfo"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuSettings"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -511,6 +524,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionSet_location">
+   <property name="text">
+    <string>Set location</string>
    </property>
   </action>
  </widget>

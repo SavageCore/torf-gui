@@ -10,7 +10,7 @@ from fnmatch import fnmatch
 import humanfriendly
 import qdarktheme
 import torf
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore, QtWidgets, uic
 
 from torf_gui import Ui_AboutDialog, Ui_MainWindow, __version__
 
@@ -140,6 +140,9 @@ class TorfGUI(Ui_MainWindow):
 
         self.actionImportProfile.triggered.connect(self.import_profile)
         self.actionExportProfile.triggered.connect(self.export_profile)
+        self.actionSet_location.triggered.connect(
+            self.showMediainfoLocationDialog
+        )
         self.actionAbout.triggered.connect(self.showAboutDialog)
         self.actionQuit.triggered.connect(self.MainWindow.close)
 
@@ -265,6 +268,18 @@ class TorfGUI(Ui_MainWindow):
         if self.last_output_dir:
             settings.setValue("history/last_output_dir", self.last_output_dir)
 
+        mediainfo_location = self.mediainfoLocationEdit.text()
+
+        # If self.mediainfoLocationEdit.text() is empty,
+        # remove mediainfo location from settings
+        if not mediainfo_location:
+            settings.remove("mediainfo/location")
+
+        # If self.mediainfoLocationEdit.text() is not empty,
+        # and a valid file path, set mediainfo location in settings
+        if mediainfo_location and os.path.isfile(mediainfo_location):
+            settings.setValue("mediainfo/location", mediainfo_location)
+
     def _statusBarMsg(self, msg):
         self.MainWindow.statusBar().showMessage(msg)
 
@@ -281,6 +296,25 @@ class TorfGUI(Ui_MainWindow):
         ad.programVersionLabel.setText(f"version {__version__}")
         ad.dtVersionLabel.setText(f"(torf {torf.__version__})")
         qdlg.exec_()
+
+    def showMediainfoLocationDialog(self):
+        dialog = QtWidgets.QDialog()
+        dialog.ui = uic.loadUi("./torf_gui/mediainfolocation.ui", dialog)
+        dialog.ui.browseButton.clicked.connect(self.browseMediainfoLocation)
+        self.mediainfoLocationEdit = dialog.ui.mediainfoLocationEdit
+        settings = self.getSettings()
+
+        mediainfo_file = "mediainfo"
+        # If windows set mediainfo_file to mediainfo.exe
+        if os.name == "nt":
+            mediainfo_file = "mediainfo.exe"
+        self.mediainfoLocationEdit.setText("Please select " + mediainfo_file)
+
+        # Set location from settings
+        mediainfo_location = settings.value("mediainfo/location")
+        if mediainfo_location:
+            self.mediainfoLocationEdit.setText(mediainfo_location)
+        dialog.exec_()
 
     def inputModeToggle(self):
         if self.fileRadioButton.isChecked():
@@ -308,6 +342,18 @@ class TorfGUI(Ui_MainWindow):
             self.inputEdit.setText(fn)
             self.last_input_dir = os.path.split(fn)[0]
             self.initializeTorrent()
+
+    def browseMediainfoLocation(self):
+        qfd = QtWidgets.QFileDialog(self.MainWindow)
+        qfd.setWindowTitle("Select file")
+        qfd.setFileMode(QtWidgets.QFileDialog.ExistingFile)
+        settings = self.getSettings()
+
+        if qfd.exec_():
+            fn = qfd.selectedFiles()[0]
+            self.mediainfoLocationEdit.setText(fn)
+            # Set mediainfo location in settings
+            settings.setValue("mediainfo/location", fn)
 
     def injectInputPath(self, path):
         if os.path.exists(path):
@@ -616,6 +662,11 @@ class TorfGUI(Ui_MainWindow):
         return t_info
 
 
+def appClose(ui):
+    ui.saveSettings()
+    QtWidgets.QApplication.closeAllWindows()
+
+
 def main():
     try:
         qdarktheme.enable_hi_dpi()
@@ -632,7 +683,7 @@ def main():
 
         ui.loadSettings()
         ui.clipboard = app.clipboard
-        app.aboutToQuit.connect(lambda: ui.saveSettings())
+        app.aboutToQuit.connect(lambda: appClose(ui))
         MainWindow.show()
         sys.exit(app.exec_())
     except Exception as e:
