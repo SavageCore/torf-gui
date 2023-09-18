@@ -380,7 +380,6 @@ class Ui_MainWindow:
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionQuit)
         self.menuHelp.addAction(self.actionAbout)
-        self.menuMediainfo.addAction(self.actionSet_location)
         self.menuMediainfo.addAction(self.actionToggleMediainfo)
         self.menuSettings.addAction(self.menuMediainfo.menuAction())
         self.menubar.addAction(self.menuFile.menuAction())

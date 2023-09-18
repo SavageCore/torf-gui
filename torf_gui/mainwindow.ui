@@ -485,7 +485,6 @@
      <property name="title">
       <string>Mediainfo</string>
      </property>
-     <addaction name="actionSet_location"/>
      <addaction name="actionToggleMediainfo"/>
     </widget>
     <addaction name="menuMediainfo"/>

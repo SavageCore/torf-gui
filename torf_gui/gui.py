@@ -10,7 +10,8 @@ from fnmatch import fnmatch
 import humanfriendly
 import qdarktheme
 import torf
-from PyQt5 import QtCore, QtWidgets, uic
+from pymediainfo import MediaInfo
+from PyQt5 import QtCore, QtWidgets
 
 from torf_gui import Ui_AboutDialog, Ui_MainWindow, __version__
 
@@ -103,8 +104,6 @@ class CreateTorrentBatchQThread(QtCore.QThread):
                 continue
             p = os.path.join(self.path, p)
 
-            # Check if the file (p) is hidden
-
             if os.path.isfile(p) and not self.is_hidden_file(p):
                 sfn = os.path.split(p)[1] + ".torrent"
                 self.progress_update.emit(sfn, i, len(entries))
@@ -129,6 +128,7 @@ class CreateTorrentBatchQThread(QtCore.QThread):
                     return
                 if self.success:
                     t.write(os.path.join(self.save_dir, sfn), overwrite=True)
+                    self.parseMediaInfo(os.path.join(self.save_dir, sfn))
 
 
 class TorfGUI(Ui_MainWindow):
@@ -137,13 +137,11 @@ class TorfGUI(Ui_MainWindow):
 
         self.torrent = None
         self.MainWindow = MainWindow
-        self.mediainfoLocationEdit = None
 
         self.actionImportProfile.triggered.connect(self.import_profile)
         self.actionExportProfile.triggered.connect(self.export_profile)
-        self.actionSet_location.triggered.connect(
-            self.showMediainfoLocationDialog
-        )
+        # self.actionSet_location.triggered.connect(
+        #     self.showMediainfoLocationDialog
         self.actionToggleMediainfo.toggled.connect(self.toggle_mediainfo)
         self.actionAbout.triggered.connect(self.showAboutDialog)
         self.actionQuit.triggered.connect(self.MainWindow.close)
@@ -276,18 +274,15 @@ class TorfGUI(Ui_MainWindow):
         if self.last_output_dir:
             settings.setValue("history/last_output_dir", self.last_output_dir)
 
-        if self.mediainfoLocationEdit is not None:
-            mediainfo_location = self.mediainfoLocationEdit.text()
+        # if self.mediainfoLocationEdit is not None:
 
-            # If self.mediainfoLocationEdit.text() is empty,
-            # remove mediainfo location from settings
-            if not mediainfo_location:
-                settings.remove("mediainfo/location")
+        #     # If self.mediainfoLocationEdit.text() is empty,
+        #     # remove mediainfo location from settings
+        #     if not mediainfo_location:
 
-            # If self.mediainfoLocationEdit.text() is not empty,
-            # and a valid file path, set mediainfo location in settings
-            if mediainfo_location and os.path.isfile(mediainfo_location):
-                settings.setValue("mediainfo/location", mediainfo_location)
+        #     # If self.mediainfoLocationEdit.text() is not empty,
+        #     # and a valid file path, set mediainfo location in settings
+        #     if mediainfo_location and os.path.isfile(mediainfo_location):
 
         mediainfo_enabled = self.actionToggleMediainfo.isChecked()
         settings.setValue("mediainfo/enabled", mediainfo_enabled)
@@ -309,24 +304,13 @@ class TorfGUI(Ui_MainWindow):
         ad.dtVersionLabel.setText(f"(torf {torf.__version__})")
         qdlg.exec_()
 
-    def showMediainfoLocationDialog(self):
-        dialog = QtWidgets.QDialog()
-        dialog.ui = uic.loadUi("./torf_gui/mediainfolocation.ui", dialog)
-        dialog.ui.browseButton.clicked.connect(self.browseMediainfoLocation)
-        self.mediainfoLocationEdit = dialog.ui.mediainfoLocationEdit
-        settings = self.getSettings()
+    # def showMediainfoLocationDialog(self):
 
-        mediainfo_file = "mediainfo"
-        # If windows set mediainfo_file to mediainfo.exe
-        if os.name == "nt":
-            mediainfo_file = "mediainfo.exe"
-        self.mediainfoLocationEdit.setText("Please select " + mediainfo_file)
+    #     # If windows set mediainfo_file to mediainfo.exe
+    #     if os.name == "nt":
 
-        # Set location from settings
-        mediainfo_location = settings.value("mediainfo/location")
-        if mediainfo_location:
-            self.mediainfoLocationEdit.setText(mediainfo_location)
-        dialog.exec_()
+    #     # Set location from settings
+    #     if mediainfo_location:
 
     def inputModeToggle(self):
         if self.fileRadioButton.isChecked():
@@ -355,17 +339,10 @@ class TorfGUI(Ui_MainWindow):
             self.last_input_dir = os.path.split(fn)[0]
             self.initializeTorrent()
 
-    def browseMediainfoLocation(self):
-        qfd = QtWidgets.QFileDialog(self.MainWindow)
-        qfd.setWindowTitle("Select file")
-        qfd.setFileMode(QtWidgets.QFileDialog.ExistingFile)
-        settings = self.getSettings()
+    # def browseMediainfoLocation(self):
 
-        if qfd.exec_():
-            fn = qfd.selectedFiles()[0]
-            self.mediainfoLocationEdit.setText(fn)
-            # Set mediainfo location in settings
-            settings.setValue("mediainfo/location", fn)
+    #     if qfd.exec_():
+    #         # Set mediainfo location in settings
 
     def injectInputPath(self, path):
         if os.path.exists(path):
@@ -520,6 +497,8 @@ class TorfGUI(Ui_MainWindow):
             self.creation_thread.finished.connect(self.creation_finished)
             self.creation_thread.onError.connect(self._showError)
             self.creation_thread.start()
+
+            self.parseMediaInfo(fn)
 
     def createTorrentBatch(self):
         save_dir = QtWidgets.QFileDialog.getExistingDirectory(
@@ -679,6 +658,19 @@ class TorfGUI(Ui_MainWindow):
         settings.setValue(
             "mediainfo/enabled", self.actionToggleMediainfo.isChecked()
         )
+
+    def parseMediaInfo(self, file_path):
+        if self.actionToggleMediainfo.isChecked():
+            media_info = MediaInfo.parse(
+                self.inputEdit.text(), full=False, output=""
+            )
+
+        if media_info:
+            media_info_file_path = os.path.splitext(file_path)[0] + ".txt"
+            # Remove extra return characters, then save to file
+            media_info = media_info.replace("\r\n", "\n")
+            with open(media_info_file_path, "w") as f:
+                f.write(media_info)
 
 
 def appClose(ui):
