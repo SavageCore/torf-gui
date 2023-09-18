@@ -72,6 +72,7 @@ class CreateTorrentBatchQThread(QtCore.QThread):
         randomize_infohash,
         comment,
         include_md5,
+        parseMediaInfo,
     ):
         super().__init__()
         self.path = path
@@ -84,6 +85,7 @@ class CreateTorrentBatchQThread(QtCore.QThread):
         self.randomize_infohash = randomize_infohash
         self.comment = comment
         self.include_md5 = include_md5
+        self.parseMediaInfo = parseMediaInfo
 
     def has_hidden_attribute(self, filepath):
         return bool(
@@ -128,7 +130,7 @@ class CreateTorrentBatchQThread(QtCore.QThread):
                     return
                 if self.success:
                     t.write(os.path.join(self.save_dir, sfn), overwrite=True)
-                    self.parseMediaInfo(os.path.join(self.save_dir, sfn))
+                    self.parseMediaInfo(p, self.save_dir)
 
 
 class TorfGUI(Ui_MainWindow):
@@ -498,7 +500,7 @@ class TorfGUI(Ui_MainWindow):
             self.creation_thread.onError.connect(self._showError)
             self.creation_thread.start()
 
-            self.parseMediaInfo(fn)
+            self.parseMediaInfo(self.torrent.path, os.path.split(fn)[0])
 
     def createTorrentBatch(self):
         save_dir = QtWidgets.QFileDialog.getExistingDirectory(
@@ -519,6 +521,7 @@ class TorfGUI(Ui_MainWindow):
                 comment=self.commentEdit.text(),
                 randomize_infohash=self.randomizeInfoHashCheckBox.isChecked(),
                 include_md5=self.md5CheckBox.isChecked(),
+                parseMediaInfo=self.parseMediaInfo,
             )
             self.creation_thread.started.connect(self.creation_started)
             self.creation_thread.progress_update.connect(
@@ -659,14 +662,14 @@ class TorfGUI(Ui_MainWindow):
             "mediainfo/enabled", self.actionToggleMediainfo.isChecked()
         )
 
-    def parseMediaInfo(self, file_path):
+    def parseMediaInfo(self, file_path, save_dir=None):
         if self.actionToggleMediainfo.isChecked():
-            media_info = MediaInfo.parse(
-                self.inputEdit.text(), full=False, output=""
-            )
+            media_info = MediaInfo.parse(file_path, full=False, output="")
 
         if media_info:
-            media_info_file_path = os.path.splitext(file_path)[0] + ".txt"
+            file_name = os.path.splitext(os.path.basename(file_path))[0]
+            # Create file path for media info file
+            media_info_file_path = os.path.join(save_dir, file_name + ".txt")
             # Remove extra return characters, then save to file
             media_info = media_info.replace("\r\n", "\n")
             with open(media_info_file_path, "w") as f:
