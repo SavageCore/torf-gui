@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'torf_gui/mainwindow.ui'
+# Form implementation generated from reading ui file 'torf_gui\mainwindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -372,12 +372,16 @@ class Ui_MainWindow:
         self.actionQuit.setObjectName("actionQuit")
         self.actionSet_location = QtWidgets.QAction(MainWindow)
         self.actionSet_location.setObjectName("actionSet_location")
+        self.actionToggle = QtWidgets.QAction(MainWindow)
+        self.actionToggle.setCheckable(True)
+        self.actionToggle.setObjectName("actionToggle")
         self.menuFile.addAction(self.actionImportProfile)
         self.menuFile.addAction(self.actionExportProfile)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionQuit)
         self.menuHelp.addAction(self.actionAbout)
         self.menuMediainfo.addAction(self.actionSet_location)
+        self.menuMediainfo.addAction(self.actionToggle)
         self.menuSettings.addAction(self.menuMediainfo.menuAction())
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuSettings.menuAction())
@@ -484,3 +488,4 @@ class Ui_MainWindow:
         self.actionSet_location.setText(
             _translate("MainWindow", "Set location")
         )
+        self.actionToggle.setText(_translate("MainWindow", "Toggle"))

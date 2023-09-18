@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'torf_gui/mediainfolocation.ui'
+# Form implementation generated from reading ui file 'torf_gui\mediainfolocation.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #

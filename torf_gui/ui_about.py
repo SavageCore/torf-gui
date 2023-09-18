@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'torf_gui/about.ui'
+# Form implementation generated from reading ui file 'torf_gui\about.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
