@@ -666,14 +666,16 @@ class TorfGUI(Ui_MainWindow):
         if self.actionToggleMediainfo.isChecked():
             media_info = MediaInfo.parse(file_path, full=False, output="")
 
-        if media_info:
-            file_name = os.path.splitext(os.path.basename(file_path))[0]
-            # Create file path for media info file
-            media_info_file_path = os.path.join(save_dir, file_name + ".txt")
-            # Remove extra return characters, then save to file
-            media_info = media_info.replace("\r\n", "\n")
-            with open(media_info_file_path, "w") as f:
-                f.write(media_info)
+            if media_info:
+                file_name = os.path.splitext(os.path.basename(file_path))[0]
+                # Create file path for media info file
+                media_info_file_path = os.path.join(
+                    save_dir, file_name + ".txt"
+                )
+                # Remove extra return characters, then save to file
+                media_info = media_info.replace("\r\n", "\n")
+                with open(media_info_file_path, "w") as f:
+                    f.write(media_info)
 
 
 def appClose(ui):
