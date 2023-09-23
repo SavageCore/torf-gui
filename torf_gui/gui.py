@@ -664,6 +664,9 @@ class TorfGUI(Ui_MainWindow):
 
     def parseMediaInfo(self, file_path, save_dir=None):
         if self.actionToggleMediainfo.isChecked():
+            if not os.path.isfile(file_path):
+                return
+
             media_info = MediaInfo.parse(file_path, full=False, output="")
 
             if media_info:
