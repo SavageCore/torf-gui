@@ -2,6 +2,7 @@
 
 import json
 import os
+import stat
 import sys
 from datetime import datetime
 from fnmatch import fnmatch
@@ -83,6 +84,15 @@ class CreateTorrentBatchQThread(QtCore.QThread):
         self.comment = comment
         self.include_md5 = include_md5
 
+    def has_hidden_attribute(self, filepath):
+        return bool(
+            os.stat(filepath).st_file_attributes & stat.FILE_ATTRIBUTE_HIDDEN
+        )
+
+    def is_hidden_file(self, path):
+        name = os.path.basename(os.path.abspath(path))
+        return name.startswith(".") or self.has_hidden_attribute(path)
+
     def run(self):
         def callback(*args):
             return None
@@ -95,7 +105,7 @@ class CreateTorrentBatchQThread(QtCore.QThread):
 
             # Check if the file (p) is hidden
 
-            if not self.is_hidden_file(p):
+            if os.path.isfile(p) and not self.is_hidden_file(p):
                 sfn = os.path.split(p)[1] + ".torrent"
                 self.progress_update.emit(sfn, i, len(entries))
                 t = torf.Torrent(
@@ -107,7 +117,6 @@ class CreateTorrentBatchQThread(QtCore.QThread):
                     source=self.source,
                     randomize_infohash=self.randomize_infohash,
                     comment=self.comment,
-                    include_md5=self.include_md5,
                     creation_date=datetime.now(),
                     created_by=CREATOR,
                 )
@@ -464,12 +473,10 @@ class TorfGUI(Ui_MainWindow):
             web_seeds = self.webSeedEdit.toPlainText().strip().split()
             self.creation_thread = CreateTorrentBatchQThread(
                 path=self.inputEdit.text(),
-                exclude_globs=self.excludeEdit.toPlainText()
-                .strip()
-                .splitlines(),
+                exclude=self.excludeEdit.toPlainText().strip().splitlines(),
                 save_dir=save_dir,
                 trackers=trackers,
-                webseeds=web_seeds,
+                web_seeds=web_seeds,
                 private=self.privateTorrentCheckBox.isChecked(),
                 source=self.sourceEdit.text(),
                 comment=self.commentEdit.text(),
