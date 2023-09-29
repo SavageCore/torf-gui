@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.2.1
+-----
+* Fix batch torrent creation
+
 0.2.0
 -----
 * Upgrade all dependencies to latest versions
