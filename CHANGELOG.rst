@@ -1,5 +1,8 @@
 Changelog
 =========
+0.2.2
+-----
+* Fix PyPI build/release - new filename needed
 
 0.2.1
 -----
