@@ -1,12 +1,10 @@
 # torf-gui
 
-
 [![GitHub Build Status](https://img.shields.io/github/actions/workflow/status/SavageCore/torf-gui/build.yml?style=flat-square&logo=pytest)](https://github.com/SavageCore/torf-gui/actions/workflows/build.yml)
 [![Code Style: black](https://img.shields.io/badge/code%20style-black-black)](https://pypi.org/project/black/)
 
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/torf-gui?style=flat-square&logo=pypi)](https://pypi.org/project/torf-gui/)
 [![PyPI - Version](https://img.shields.io/pypi/v/torf-gui?style=flat-square)](https://pypi.org/project/torf-gui/)
-
 
 A quick and dirty port of
 [dottorrent-gui](https://github.com/kz26/dottorrent-gui) for
@@ -18,24 +16,24 @@ A quick and dirty port of
 
 ## Features
 
--   Fast (capable of several hundred MB/s)
--   Cross-platform
--   Full Unicode support
--   Use multiple CPU cores to compute piece hashes
--   Automatic and manual piece size selection, up to 16MB
--   Batch torrent creation mode
--   Filename exclusion patterns (globs)
--   HTTP/web seeds support [(BEP
+- Fast (capable of several hundred MB/s)
+- Cross-platform
+- Full Unicode support
+- Use multiple CPU cores to compute piece hashes
+- Automatic and manual piece size selection, up to 16MB
+- Batch torrent creation mode
+- Filename exclusion patterns (globs)
+- HTTP/web seeds support [(BEP
     19)](http://www.bittorrent.org/beps/bep_0019.html)
--   Private flag support [(BEP
+- Private flag support [(BEP
     27)](http://www.bittorrent.org/beps/bep_0027.html)
--   Randomize info hash to help with cross-seeding
--   User-definable source string
--   Optional MD5 file hash inclusion
--   [Import/export of
+- Randomize info hash to help with cross-seeding
+- User-definable source string
+- Optional MD5 file hash inclusion
+- [Import/export of
     profiles](https://github.com/SavageCore/torf-gui/wiki/Profiles)
     (trackers, web seeds, source string, filename exclusion patterns)
--   Automatic dark mode!
+- Automatic dark mode!
 
 ## Installation
 
@@ -53,11 +51,11 @@ You may need to allow the app to run in your security settings.
 
 ### Linux
 
-**Requirements**
+#### Requirements
 
--   Python 3.3+
--   PyQt5 5.7+
--   libxcb-xinerama0 (Debian/Ubuntu)
+- Python 3.3+
+- PyQt5 5.7+
+- libxcb-xinerama0 (Debian/Ubuntu)
 
 Latest stable release: `pip install torf-gui`
 
