@@ -376,7 +376,7 @@ class TorfGUI(Ui_MainWindow):
                 )
             )
         self.pieceSizeComboBox.setCurrentIndex(0)
-        self.updatePieceCountLabel(t_info[2], t_info[3])
+        self.updatePieceCountLabel(t_info[3], t_info[2])
         self.pieceCountLabel.show()
         self.createButton.setEnabled(True)
 
@@ -392,7 +392,7 @@ class TorfGUI(Ui_MainWindow):
         if getattr(self, "torrent", None):
             self.torrent.piece_size = PIECE_SIZES[index]
             t_info = self.get_info(self.torrent)
-            self.updatePieceCountLabel(t_info[2], t_info[3])
+            self.updatePieceCountLabel(t_info[3], t_info[2])
 
     def updatePieceCountLabel(self, ps, pc):
         ps = humanfriendly.format_size(ps, binary=True)
