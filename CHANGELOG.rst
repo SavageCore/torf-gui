@@ -1,5 +1,9 @@
 Changelog
 =========
+0.2.3
+-----
+* Fix for pieces and size being reversed under torrent options
+
 0.2.2
 -----
 * Fix PyPI build/release - new filename needed
