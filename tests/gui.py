@@ -93,7 +93,7 @@ def test_piece_size_file(app):
     app.inputEdit.setText("tmp/test_dir/test_file.txt")
     app.initializeTorrent()
 
-    assert app.pieceCountLabel.text() == "16384 pieces @ 1 byte each"
+    assert app.pieceCountLabel.text() == "1 pieces @ 16 KiB each"
 
 
 # File size is calculated correctly for a file
