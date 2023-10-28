@@ -11,6 +11,9 @@ import humanfriendly
 import qdarktheme
 import torf
 from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtGui import QColorConstants, QPalette
+from PyQt5.QtWidgets import QApplication
+from qdarktheme import _style_loader
 
 from torf_gui import Ui_AboutDialog, Ui_MainWindow, __version__
 
@@ -620,9 +623,17 @@ def main():
     try:
         qdarktheme.enable_hi_dpi()
 
-        app = QtWidgets.QApplication(sys.argv)
+        app = QApplication(sys.argv + ["-platform", "windows:darkmode=2"])
 
         qdarktheme.setup_theme("auto")
+
+        # Hack for https://github.com/5yutan5/PyQtDarkTheme/issues/229
+        qpalette = qdarktheme.load_palette("auto")
+        theme = _style_loader._detect_system_theme("light")
+
+        if sys.platform == "win32" and theme == "dark":
+            qpalette.setColor(QPalette.WindowText, QColorConstants.White)
+            QApplication.instance().setPalette(qpalette)
 
         MainWindow = QtWidgets.QMainWindow()
         ui = TorfGUI()
