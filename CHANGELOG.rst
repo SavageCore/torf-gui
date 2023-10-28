@@ -1,5 +1,9 @@
 Changelog
 =========
+0.2.4
+-----
+* [Windows] Ensure the title bar is dark when system theme is dark
+
 0.2.3
 -----
 * Fix for pieces and size being reversed under torrent options
