@@ -96,18 +96,29 @@ class CreateTorrentBatchQThread(QtCore.QThread):
         name = os.path.basename(os.path.abspath(path))
         return name.startswith(".") or self.has_hidden_attribute(path)
 
-    def run(self):
+    def run(self):  # noqa: C901
         def callback(*args):
             return None
 
+        self.success = False
+
+        if os.path.isdir(self.path):
+            if os.listdir(self.path):
+                for file in os.listdir(self.path):
+                    if os.path.isfile(file) and not self.is_hidden_file(file):
+                        break
+                else:
+                    self.onError.emit("Input path must be non-empty")
+                    return
+
         entries = os.listdir(self.path)
+
         for i, p in enumerate(entries):
             if any(fnmatch(p, ex) for ex in self.exclude):
                 continue
             p = os.path.join(self.path, p)
 
             # Check if the file (p) is hidden
-
             if os.path.isfile(p) and not self.is_hidden_file(p):
                 sfn = os.path.split(p)[1] + ".torrent"
                 self.progress_update.emit(sfn, i, len(entries))
