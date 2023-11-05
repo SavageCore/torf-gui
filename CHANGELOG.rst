@@ -1,5 +1,9 @@
 Changelog
 =========
+0.2.5
+-----
+* Fix crash when choosing a folder in batch mode with no files in it
+
 0.2.4
 -----
 * [Windows] Ensure the title bar is dark when system theme is dark
