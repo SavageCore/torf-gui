@@ -301,10 +301,18 @@ class TorfGUI(Ui_MainWindow):
             self.inputMode = "file"
             self.batchModeCheckBox.setEnabled(False)
             self.batchModeCheckBox.hide()
+            self.pieceSizeComboBox.setEnabled(True)
+            if self.torrent:
+                self.pieceCountLabel.show()
         else:
             self.inputMode = "directory"
             self.batchModeCheckBox.setEnabled(True)
             self.batchModeCheckBox.show()
+            # If batch mode is enabled, disable piece size selection
+            if self.batchModeCheckBox.isChecked():
+                self.pieceSizeComboBox.setCurrentIndex(0)
+                self.pieceSizeComboBox.setEnabled(False)
+                self.pieceCountLabel.hide()
         self.inputEdit.setText("")
 
     def browseInput(self):
