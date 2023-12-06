@@ -1,5 +1,10 @@
 Changelog
 =========
+0.2.6
+-----
+* Support for torf 4.2.4 (32MB piece size support)
+* Better handling of piece size selection when switching between modes
+
 0.2.5
 -----
 * Fix crash when choosing a folder in batch mode with no files in it
