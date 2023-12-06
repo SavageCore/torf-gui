@@ -21,7 +21,7 @@ PROGRAM_NAME = "torf-gui"
 PROGRAM_NAME_VERSION = f"{PROGRAM_NAME} {__version__}"
 CREATOR = f"torf-gui/{__version__} (https://github.com/SavageCore/torf-gui)"
 
-PIECE_SIZES = [None] + [2**i for i in range(14, 25)]
+PIECE_SIZES = [None] + [2**i for i in range(14, 26)]
 
 if getattr(sys, "frozen", False):
     _basedir = sys._MEIPASS
@@ -412,6 +412,10 @@ class TorfGUI(Ui_MainWindow):
 
     def pieceSizeChanged(self, index):
         if getattr(self, "torrent", None):
+            # If piece size is greater than piece_size_max_default (16 MiB),
+            # set piece_size_max to the selected piece size
+            if PIECE_SIZES[index] > 16777216:
+                self.torrent.piece_size_max = PIECE_SIZES[index]
             self.torrent.piece_size = PIECE_SIZES[index]
             t_info = self.get_info(self.torrent)
             self.updatePieceCountLabel(t_info[3], t_info[2])

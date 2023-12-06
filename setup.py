@@ -9,7 +9,7 @@ setup(
     packages=find_packages(),
     entry_points={"gui_scripts": ["torf-gui = torf_gui.gui:main"]},
     install_requires=[
-        "torf>=4.2.2",
+        "torf>=4.2.4",
         "humanfriendly>=10.0",
         "PyQt5>=5.15.9",
         "pyqtdarktheme>=2.1.0",

@@ -1,5 +1,5 @@
 humanfriendly>=10.0
-torf>=4.2.2
+torf>=4.2.4
 PyQt5>=5.15.9
 pyqtdarktheme>=2.1.0
 pyinstaller>=5.13.2
