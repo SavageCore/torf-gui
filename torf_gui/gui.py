@@ -650,6 +650,9 @@ def main():
         qdarktheme.enable_hi_dpi()
 
         app = QApplication(sys.argv + ["-platform", "windows:darkmode=2"])
+        app.setAttribute(
+            QtCore.Qt.ApplicationAttribute.AA_DisableWindowContextHelpButton
+        )
 
         qdarktheme.setup_theme("auto")
 
