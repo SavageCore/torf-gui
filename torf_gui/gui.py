@@ -21,7 +21,7 @@ PROGRAM_NAME = "torf-gui"
 PROGRAM_NAME_VERSION = f"{PROGRAM_NAME} {__version__}"
 CREATOR = f"torf-gui/{__version__} (https://github.com/SavageCore/torf-gui)"
 
-PIECE_SIZES = [None] + [2**i for i in range(14, 26)]
+PIECE_SIZES = [None] + [2**i for i in range(14, 27)]
 
 if getattr(sys, "frozen", False):
     _basedir = sys._MEIPASS
