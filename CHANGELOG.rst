@@ -1,5 +1,12 @@
 Changelog
 =========
+0.3.0
+-----
+* Resolved an issue that caused the application to crash when loading a file with the piece size set to a specific value, instead of automatic
+* Added support for 64MB piece sizes
+* Support sub-folders in batch mode
+* General styling improvements
+
 0.2.6
 -----
 * Support for torf 4.2.4 (32MB piece size support)
