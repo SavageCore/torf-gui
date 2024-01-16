@@ -26,7 +26,7 @@ jobs:
 
       - name: Increase resolution
         run: |
-          Set-DisplayResolution -Width 1920 -Height 1080 -Force
+          Set-DisplayResolution -Width 2560 -Height 1440 -Force
         shell: powershell
 
       - name: Run app and take screenshot
