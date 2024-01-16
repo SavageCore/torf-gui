@@ -37,21 +37,7 @@ class Ui_MainWindow:
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)
-        self.scrollArea.setSizeAdjustPolicy(
-            QtWidgets.QAbstractScrollArea.AdjustToContents
-        )
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollArea.setObjectName("scrollArea")
-        self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 480, 910))
-        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-        self.verticalLayoutMain = QtWidgets.QVBoxLayout(
-            self.scrollAreaWidgetContents
-        )
-        self.verticalLayoutMain.setContentsMargins(12, 12, 12, 12)
-        self.verticalLayoutMain.setObjectName("verticalLayoutMain")
-        self.inputGroupBox = QtWidgets.QGroupBox(self.scrollAreaWidgetContents)
+        self.inputGroupBox = QtWidgets.QGroupBox(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Preferred,
             QtWidgets.QSizePolicy.MinimumExpanding,
@@ -163,10 +149,8 @@ class Ui_MainWindow:
         self.directoryRadioButton.setSizePolicy(sizePolicy)
         self.directoryRadioButton.setObjectName("directoryRadioButton")
         self.gridLayout.addWidget(self.directoryRadioButton, 0, 2, 1, 1)
-        self.verticalLayoutMain.addWidget(self.inputGroupBox)
-        self.seedingGroupBox = QtWidgets.QGroupBox(
-            self.scrollAreaWidgetContents
-        )
+        self.verticalLayout.addWidget(self.inputGroupBox)
+        self.seedingGroupBox = QtWidgets.QGroupBox(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Preferred,
             QtWidgets.QSizePolicy.MinimumExpanding,
@@ -240,10 +224,7 @@ class Ui_MainWindow:
         )
         self.webSeedEdit.setObjectName("webSeedEdit")
         self.verticalLayout_2.addWidget(self.webSeedEdit)
-        self.verticalLayoutMain.addWidget(self.seedingGroupBox)
-        self.optionGroupBox = QtWidgets.QGroupBox(
-            self.scrollAreaWidgetContents
-        )
+        self.optionGroupBox = QtWidgets.QGroupBox(self.seedingGroupBox)
         sizePolicy = QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed
         )
@@ -327,9 +308,8 @@ class Ui_MainWindow:
         self.sourceLabel.setSizePolicy(sizePolicy)
         self.sourceLabel.setObjectName("sourceLabel")
         self.gridLayout_2.addWidget(self.sourceLabel, 6, 0, 1, 1)
-        self.verticalLayoutMain.addWidget(self.optionGroupBox)
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        self.verticalLayout.addWidget(self.scrollArea)
+        self.verticalLayout_2.addWidget(self.optionGroupBox)
+        self.verticalLayout.addWidget(self.seedingGroupBox)
         self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
         self.progressBar.setProperty("value", 24)
         self.progressBar.setObjectName("progressBar")
