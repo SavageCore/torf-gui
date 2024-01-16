@@ -96,22 +96,22 @@ class CreateTorrentBatchQThread(QtCore.QThread):
         name = os.path.basename(os.path.abspath(path))
         return name.startswith(".") or self.has_hidden_attribute(path)
 
-    def run(self):  # noqa: C901
+    def run(self):
         def callback(*args):
             return None
 
         self.success = False
 
-        if os.path.isdir(self.path):
-            if os.listdir(self.path):
-                for file in os.listdir(self.path):
-                    if os.path.isfile(file) and not self.is_hidden_file(file):
-                        break
-                else:
-                    self.onError.emit("Input path must be non-empty")
-                    return
+        entries = [
+            os.path.join(root, file)
+            for root, _, files in os.walk(self.path)
+            for file in files
+            if not self.is_hidden_file(os.path.join(root, file))
+        ]
 
-        entries = os.listdir(self.path)
+        if not entries:
+            self.onError.emit("Input path must be non-empty")
+            return
 
         for i, p in enumerate(entries):
             if any(fnmatch(p, ex) for ex in self.exclude):
@@ -380,6 +380,12 @@ class TorfGUI(Ui_MainWindow):
         self.torrent = torf.Torrent(self.inputEdit.text())
         try:
             t_info = self.get_info(self.torrent)
+
+            # Check if the input path is empty
+            if t_info[1] == 0:
+                self.torrent = None
+                self._showError("Input path must be non-empty")
+                return
         except Exception as e:
             self.torrent = None
             self._showError(str(e))
