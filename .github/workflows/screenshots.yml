@@ -31,6 +31,7 @@ jobs:
 
       - name: Run app and take screenshot
         run: |
+          # Start app and take screenshot
           python -c "
           import sys
           from PyQt5.QtWidgets import QApplication, QMainWindow
@@ -48,8 +49,14 @@ jobs:
 
           # Function to take screenshot
           def take_screenshot():
-              # Grab the window's screen and save it to a file
-              QGuiApplication.primaryScreen().grabWindow(main_window.winId()).save('screenshot-light.png', 'png')
+              # Grab the screen that contains the window
+              screen = QGuiApplication.screenAt(main_window.geometry().center())
+              if screen is not None:
+                  # Grab the entire screen and crop it to the window geometry
+                  screenshot = screen.grabWindow(QApplication.desktop().winId())
+                  cropped_screenshot = screenshot.copy(main_window.frameGeometry())
+                  # Save the cropped screenshot to a file
+                  cropped_screenshot.save('screenshot-light.png', 'png')
               # Quit the application
               QApplication.quit()
 
