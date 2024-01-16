@@ -414,7 +414,10 @@ class TorfGUI(Ui_MainWindow):
         if getattr(self, "torrent", None):
             # If piece size is greater than piece_size_max_default (16 MiB),
             # set piece_size_max to the selected piece size
-            if PIECE_SIZES[index] > 16777216:
+            if (
+                PIECE_SIZES[index] is not None
+                and PIECE_SIZES[index] > 16777216
+            ):
                 self.torrent.piece_size_max = PIECE_SIZES[index]
             self.torrent.piece_size = PIECE_SIZES[index]
             t_info = self.get_info(self.torrent)
