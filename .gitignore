@@ -90,3 +90,5 @@ ENV/
 
 # pytest
 .pytest_cache/
+
+screenshot-light.png
