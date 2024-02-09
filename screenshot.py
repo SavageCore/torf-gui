@@ -1,3 +1,4 @@
+import argparse
 import sys
 
 from PyQt5.QtCore import QTimer
@@ -9,6 +10,11 @@ from torf_gui.ui_mainwindow import Ui_MainWindow
 
 PROGRAM_NAME = "torf-gui"
 PROGRAM_NAME_VERSION = f"{PROGRAM_NAME} {__version__}"
+
+# Parse command-line arguments
+parser = argparse.ArgumentParser()
+parser.add_argument("theme", help="specify the theme (light or dark)")
+args = parser.parse_args()
 
 # Create an instance of the application
 app = QApplication(sys.argv)
@@ -30,7 +36,7 @@ def take_screenshot():
         screenshot = screen.grabWindow(QApplication.desktop().winId())
         cropped_screenshot = screenshot.copy(main_window.frameGeometry())
         # Save the cropped screenshot to a file
-        cropped_screenshot.save("screenshot-light.png", "png")
+        cropped_screenshot.save(f"screenshot-{args.theme}.png", "png")
     # Quit the application
     QApplication.quit()
 

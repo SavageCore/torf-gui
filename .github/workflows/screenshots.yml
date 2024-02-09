@@ -38,10 +38,21 @@ jobs:
           Stop-Process -Name Explorer
         shell: powershell
 
-      - name: Run app and take screenshot
+      - name: Run app and take screenshot (Light mode)
         run: |
-          # Start app and take screenshot
-          python screenshot.py
+          python screenshot.py light
+        shell: powershell
+
+      - name: Set dark mode
+        run: |
+          $darkMode = New-Object -ComObject WScript.Shell
+          $darkModeReg = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize"
+          $darkMode.SetValue($darkModeReg, "AppsUseLightTheme", 0, "REG_DWORD")
+        shell: powershell
+
+      - name: Run app and take screenshot (Dark mode)
+        run: |
+          python screenshot.py dark
         shell: powershell
 
       - name: Upload screenshot
