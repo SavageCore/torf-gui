@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python 3.x
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ">=3.7 <3.12"
       - name: Install dependencies
@@ -23,7 +23,7 @@ jobs:
       - name: Build with pyinstaller
         run: pyinstaller -F -w -n torf-gui-win64 torf_gui/gui.py
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: torf-gui-win64
           path: dist/torf-gui-win64.exe
