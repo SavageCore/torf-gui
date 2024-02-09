@@ -6,11 +6,14 @@ param (
 
 $version = (Get-Content torf_gui/version.py | Select-String -Pattern "__version__").ToString().Split(" ")[2].Trim('"')
 
-# Start the Python script
-Start-Process python -ArgumentList "torf_gui/gui.py" -WindowStyle Hidden
+# Start the Python script and keep a reference to the spawned process to close it later
+$originalProcess = Start-Process python -ArgumentList "torf_gui/gui.py" -WindowStyle Hidden -PassThru
 
-# Wait for the window to appear
+# Wait for the new process to start
 Start-Sleep -Seconds 5
+
+# Get the new Python process
+$newProcess = Get-Process -Name python | Where-Object { $_.Id -ne $originalProcess.Id }
 
 # Capture the window screenshot
 Add-Type -TypeDefinition @"
@@ -65,3 +68,6 @@ public class ScreenCapture {
 $screenCapture = New-Object ScreenCapture
 $bitmap = $screenCapture.CaptureWindow("torf-gui $version")
 $bitmap.Save("screenshot-$theme.png", [System.Drawing.Imaging.ImageFormat]::Png)
+
+# Close the Python script
+$newProcess.Kill()

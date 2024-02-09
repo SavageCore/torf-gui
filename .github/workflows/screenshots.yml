@@ -43,6 +43,16 @@ jobs:
           .\screenshot.ps1 light
         shell: powershell
 
+      # Debug capture the entire screen
+      - name: Debug capture the entire screen
+        run: |
+          $screen = [Windows.Forms.Screen]::PrimaryScreen.Bounds
+          $bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height
+          $graphics = [Drawing.Graphics]::FromImage($bitmap)
+          $graphics.CopyFromScreen($screen.Location, [Drawing.Point]::Empty, $screen.Size)
+          $bitmap.Save("screenshot-debug1.png")
+        shell: powershell
+
       - name: Set dark mode
         run: |
           $darkModeReg = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize"
@@ -52,6 +62,16 @@ jobs:
       - name: Run app and take screenshot (Dark mode)
         run: |
           .\screenshot.ps1 dark
+        shell: powershell
+
+      # Debug capture the entire screen
+      - name: Debug capture the entire screen
+        run: |
+          $screen = [Windows.Forms.Screen]::PrimaryScreen.Bounds
+          $bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height
+          $graphics = [Drawing.Graphics]::FromImage($bitmap)
+          $graphics.CopyFromScreen($screen.Location, [Drawing.Point]::Empty, $screen.Size)
+          $bitmap.Save("screenshot-debug2.png")
         shell: powershell
 
       - name: Upload screenshots
