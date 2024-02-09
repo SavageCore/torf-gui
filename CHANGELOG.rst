@@ -1,5 +1,9 @@
 Changelog
 =========
+0.3.1
+-----
+* Fix sub-folder support in batch mode [#20]
+
 0.3.0
 -----
 * Resolved an issue that caused the application to crash when loading a file with the piece size set to a specific value, instead of automatic
