@@ -4,6 +4,8 @@ param (
     [string]$theme
 )
 
+$version = (Get-Content torf_gui/version.py | Select-String -Pattern "__version__").ToString().Split(" ")[2].Trim('"')
+
 # Start the Python script
 Start-Process python -ArgumentList "torf_gui/gui.py" -WindowStyle Hidden
 
@@ -61,5 +63,5 @@ public class ScreenCapture {
 "@ -ReferencedAssemblies System.Drawing, System.Windows.Forms
 
 $screenCapture = New-Object ScreenCapture
-$bitmap = $screenCapture.CaptureWindow("torf-gui 0.3.0")
+$bitmap = $screenCapture.CaptureWindow("torf-gui $version")
 $bitmap.Save("screenshot-$theme.png", [System.Drawing.Imaging.ImageFormat]::Png)
