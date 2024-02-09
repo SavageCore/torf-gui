@@ -102,24 +102,14 @@ class CreateTorrentBatchQThread(QtCore.QThread):
 
         self.success = False
 
-        entries = [
-            os.path.join(root, file)
-            for root, _, files in os.walk(self.path)
-            for file in files
-            if not self.is_hidden_file(os.path.join(root, file))
-        ]
-
-        if not entries:
-            self.onError.emit("Input path must be non-empty")
-            return
+        entries = os.listdir(self.path)
 
         for i, p in enumerate(entries):
             if any(fnmatch(p, ex) for ex in self.exclude):
                 continue
             p = os.path.join(self.path, p)
 
-            # Check if the file (p) is hidden
-            if os.path.isfile(p) and not self.is_hidden_file(p):
+            if not self.is_hidden_file(p):
                 sfn = os.path.split(p)[1] + ".torrent"
                 self.progress_update.emit(sfn, i, len(entries))
                 t = torf.Torrent(
@@ -136,7 +126,10 @@ class CreateTorrentBatchQThread(QtCore.QThread):
                 )
                 try:
                     self.success = t.generate(callback=callback)
-                except Exception as exc:
+                # Ignore empty inputs
+                except torf.TorfError as exc:
+                    if "Empty or all files excluded" in str(exc):
+                        continue
                     self.onError.emit(str(exc))
                     return
                 if self.isInterruptionRequested():
