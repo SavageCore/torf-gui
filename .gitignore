@@ -92,3 +92,5 @@ ENV/
 .pytest_cache/
 
 screenshot-light.png
+screenshot-dark.png
+screenshot.png

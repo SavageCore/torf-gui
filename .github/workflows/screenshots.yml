@@ -40,7 +40,7 @@ jobs:
 
       - name: Run app and take screenshot (Light mode)
         run: |
-          python screenshot.py light
+          .\screenshot.ps1 light
         shell: powershell
 
       - name: Set dark mode
@@ -52,11 +52,11 @@ jobs:
 
       - name: Run app and take screenshot (Dark mode)
         run: |
-          python screenshot.py dark
+          .\screenshot.ps1 dark
         shell: powershell
 
-      - name: Upload screenshot
+      - name: Upload screenshots
         uses: actions/upload-artifact@v4
         with:
-          name: screenshot-light
-          path: screenshot-light.png
+          name: screenshots
+          path: screenshot-*.png
