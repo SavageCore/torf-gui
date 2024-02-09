@@ -45,9 +45,8 @@ jobs:
 
       - name: Set dark mode
         run: |
-          $darkMode = New-Object -ComObject WScript.Shell
           $darkModeReg = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize"
-          $darkMode.SetValue($darkModeReg, "AppsUseLightTheme", 0, "REG_DWORD")
+          Set-ItemProperty -Path $darkModeReg -Name "AppsUseLightTheme" -Value 0
         shell: powershell
 
       - name: Run app and take screenshot (Dark mode)
