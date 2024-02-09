@@ -9,3 +9,4 @@ ruff>=0.0.289
 black>=23.9.1
 twine>=4.0.2
 wheel>=0.41.2
+pre-commit
