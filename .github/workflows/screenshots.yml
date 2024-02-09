@@ -29,6 +29,15 @@ jobs:
           Set-DisplayResolution -Width 1920 -Height 1080 -Force
         shell: powershell
 
+      - name: Hide taskbar
+        run: |
+          $location = @{Path = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3'; Name = 'Settings'}
+          $value = Get-ItemPropertyValue @location
+          $value[8] = 123
+          Set-ItemProperty @location $value
+          Stop-Process -Name Explorer
+        shell: powershell
+
       - name: Run app and take screenshot
         run: |
           # Start app and take screenshot
