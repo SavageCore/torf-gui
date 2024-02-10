@@ -41,6 +41,7 @@ jobs:
       # Debug capture the entire screen
       - name: Debug capture the entire screen
         run: |
+          Add-Type -AssemblyName System.Windows.Forms
           $screen = [Windows.Forms.Screen]::PrimaryScreen.Bounds
           $bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height
           $graphics = [Drawing.Graphics]::FromImage($bitmap)
@@ -62,6 +63,7 @@ jobs:
       # Debug capture the entire screen
       - name: Debug capture the entire screen
         run: |
+          Add-Type -AssemblyName System.Windows.Forms
           $screen = [Windows.Forms.Screen]::PrimaryScreen.Bounds
           $bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height
           $graphics = [Drawing.Graphics]::FromImage($bitmap)
@@ -83,6 +85,7 @@ jobs:
       # Debug capture the entire screen
       - name: Debug capture the entire screen
         run: |
+          Add-Type -AssemblyName System.Windows.Forms
           $screen = [Windows.Forms.Screen]::PrimaryScreen.Bounds
           $bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height
           $graphics = [Drawing.Graphics]::FromImage($bitmap)
