@@ -20,7 +20,7 @@ Write-Host "Waiting for the process to start..."
 
 
 # Wait for the new process to start
-Start-Sleep -Seconds 15
+Start-Sleep -Seconds 5
 
 # Get the new Python process
 $newProcess = Get-Process -Name python | Where-Object { $_.Id -ne $originalProcess.Id }
