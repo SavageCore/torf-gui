@@ -59,6 +59,11 @@ jobs:
           Start-Process python torf_gui/gui.py
         shell: powershell
 
+      - name: Wait for app to start
+        run: |
+          Start-Sleep -s 5
+        shell: powershell
+
       # Debug capture the entire screen
       - uses: OrbitalOwen/desktop-screenshot-action@0.1
         with:
@@ -84,6 +89,11 @@ jobs:
       - name: Run app
         run: |
           Start-Process python torf_gui/gui.py
+        shell: powershell
+
+      - name: Wait for app to start
+        run: |
+          Start-Sleep -s 5
         shell: powershell
 
       # Debug capture the entire screen
