@@ -26,8 +26,8 @@ Start-Sleep -Seconds 5
 $newProcess = Get-Process -Name python | Where-Object { $_.Id -ne $originalProcess.Id }
 
 # Debug print running processes
-Write-Host "Running processes:"
-Get-Process | ForEach-Object { Write-Host $_.Name }
+# Write-Host "Running processes:"
+# Get-Process | ForEach-Object { Write-Host $_.Name }
 
 # Debug print the process ID
 Write-Host "Process ID: $($newProcess.Id)"
@@ -80,7 +80,7 @@ public class ScreenCapture {
         return bitmap;
     }
 }
-"@ -ReferencedAssemblies System.Drawing, System.Drawing.Primitives System.Windows.Forms
+"@ -ReferencedAssemblies System.Drawing, System.Drawing.Common, System.Drawing.Primitives, System.Windows.Forms
 
 # Capture the window screenshot
 
