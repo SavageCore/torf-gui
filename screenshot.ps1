@@ -25,6 +25,10 @@ Start-Sleep -Seconds 15
 # Get the new Python process
 $newProcess = Get-Process -Name python | Where-Object { $_.Id -ne $originalProcess.Id }
 
+# Debug print running processes
+Write-Host "Running processes:"
+Get-Process | ForEach-Object { Write-Host $_.Name }
+
 # Debug print the process ID
 Write-Host "Process ID: $($newProcess.Id)"
 
@@ -83,8 +87,11 @@ public class ScreenCapture {
 Write-Host "Capturing the window screenshot..."
 
 $screenCapture = New-Object ScreenCapture
+Write-Host "Test 1"
 $bitmap = $screenCapture.CaptureWindow("torf-gui $version")
+Write-Host "Test 2"
 $bitmap.Save("screenshot-$theme.png", [System.Drawing.Imaging.ImageFormat]::Png)
+Write-Host "Test 3"
 
 # Close the Python script
 $newProcess.Kill()
