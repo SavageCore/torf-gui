@@ -71,6 +71,12 @@ jobs:
           $bitmap.Save("screenshot-debug1.png")
         shell: powershell
 
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: screenshot-*.png
+
       - name: Set dark mode
         run: |
           $darkModeReg = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize"
@@ -91,6 +97,11 @@ jobs:
           $graphics = [Drawing.Graphics]::FromImage($bitmap)
           $graphics.CopyFromScreen($screen.Location, [Drawing.Point]::Empty, $screen.Size)
           $bitmap.Save("screenshot-debug2.png")
+        shell: powershell
+
+      - name: list directory
+        run: |
+          Get-ChildItem
         shell: powershell
 
       - name: Upload screenshots
