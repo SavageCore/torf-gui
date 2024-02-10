@@ -56,7 +56,7 @@ jobs:
 
       - name: Run app
         run: |
-          python torf_gui/gui.py
+          Start-Process python torf_gui/gui.py
         shell: powershell
 
       # Debug capture the entire screen
@@ -83,7 +83,7 @@ jobs:
 
       - name: Run app
         run: |
-          python torf_gui/gui.py
+          Start-Process python torf_gui/gui.py
         shell: powershell
 
       # Debug capture the entire screen
