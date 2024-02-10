@@ -49,11 +49,11 @@ jobs:
           $bitmap.Save("screenshot-debug0.png")
         shell: powershell
 
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v4
-        with:
-          name: screenshots
-          path: screenshot-*.png
+      # - name: Upload screenshots
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: screenshots
+      #     path: screenshot-*.png
 
       - name: Run app and take screenshot (Light mode)
         run: |
@@ -71,11 +71,11 @@ jobs:
           $bitmap.Save("screenshot-debug1.png")
         shell: powershell
 
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v4
-        with:
-          name: screenshots
-          path: screenshot-*.png
+      # - name: Upload screenshots
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: screenshots
+      #     path: screenshot-*.png
 
       - name: Set dark mode
         run: |
