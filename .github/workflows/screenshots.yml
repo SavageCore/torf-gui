@@ -55,9 +55,14 @@ jobs:
       #     name: screenshots
       #     path: screenshot-*.png
 
-      - name: Run app and take screenshot (Light mode)
+      # - name: Run app and take screenshot (Light mode)
+      #   run: |
+      #     .\screenshot.ps1 light
+      #   shell: powershell
+
+      - name: Run app
         run: |
-          .\screenshot.ps1 light
+          python torf_gui/gui.py
         shell: powershell
 
       # Debug capture the entire screen
@@ -83,9 +88,14 @@ jobs:
           Set-ItemProperty -Path $darkModeReg -Name "AppsUseLightTheme" -Value 0
         shell: powershell
 
-      - name: Run app and take screenshot (Dark mode)
+      # - name: Run app and take screenshot (Dark mode)
+      #   run: |
+      #     .\screenshot.ps1 dark
+      #   shell: powershell
+
+      - name: Run app
         run: |
-          .\screenshot.ps1 dark
+          python torf_gui/gui.py
         shell: powershell
 
       # Debug capture the entire screen
