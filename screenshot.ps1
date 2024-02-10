@@ -94,4 +94,4 @@ $bitmap.Save("screenshot-$theme.png", [System.Drawing.Imaging.ImageFormat]::Png)
 Write-Host "Test 3"
 
 # Close the Python script
-$newProcess.Kill()
+# $newProcess.Kill()
