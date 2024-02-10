@@ -13,8 +13,8 @@ $version = (Get-Content torf_gui/version.py | Select-String -Pattern "__version_
 
 Write-Host "Version: $version"
 
-# Start the Python script and keep a reference to the spawned process to close it later
-python "torf_gui/gui.py"
+# Start the Python script
+python "torf_gui/gui.py" &
 
 Write-Host "Waiting for the process to start..."
 
