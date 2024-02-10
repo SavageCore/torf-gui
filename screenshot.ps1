@@ -18,7 +18,6 @@ Start-Process python "torf_gui/gui.py"
 
 Write-Host "Waiting for the process to start..."
 
-
 # Wait for the new process to start
 Start-Sleep -Seconds 5
 
@@ -94,4 +93,4 @@ $bitmap.Save("screenshot-$theme.png", [System.Drawing.Imaging.ImageFormat]::Png)
 Write-Host "Test 3"
 
 # Close the Python script
-# $newProcess.Kill()
+$newProcess.Kill()
