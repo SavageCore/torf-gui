@@ -39,15 +39,9 @@ jobs:
         shell: powershell
 
       # Debug capture the entire screen
-      - name: Debug capture the entire screen
-        run: |
-          Add-Type -AssemblyName System.Windows.Forms
-          $screen = [Windows.Forms.Screen]::PrimaryScreen.Bounds
-          $bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height
-          $graphics = [Drawing.Graphics]::FromImage($bitmap)
-          $graphics.CopyFromScreen($screen.Location, [Drawing.Point]::Empty, $screen.Size)
-          $bitmap.Save("screenshot-debug0.png")
-        shell: powershell
+      - uses: OrbitalOwen/desktop-screenshot-action@0.1
+        with:
+          file-name: "screenshot-debug0.jpg"
 
       # - name: Upload screenshots
       #   uses: actions/upload-artifact@v4
@@ -66,15 +60,9 @@ jobs:
         shell: powershell
 
       # Debug capture the entire screen
-      - name: Debug capture the entire screen
-        run: |
-          Add-Type -AssemblyName System.Windows.Forms
-          $screen = [Windows.Forms.Screen]::PrimaryScreen.Bounds
-          $bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height
-          $graphics = [Drawing.Graphics]::FromImage($bitmap)
-          $graphics.CopyFromScreen($screen.Location, [Drawing.Point]::Empty, $screen.Size)
-          $bitmap.Save("screenshot-debug1.png")
-        shell: powershell
+      - uses: OrbitalOwen/desktop-screenshot-action@0.1
+        with:
+          file-name: "screenshot-debug1.jpg"
 
       # - name: Upload screenshots
       #   uses: actions/upload-artifact@v4
@@ -99,15 +87,9 @@ jobs:
         shell: powershell
 
       # Debug capture the entire screen
-      - name: Debug capture the entire screen
-        run: |
-          Add-Type -AssemblyName System.Windows.Forms
-          $screen = [Windows.Forms.Screen]::PrimaryScreen.Bounds
-          $bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height
-          $graphics = [Drawing.Graphics]::FromImage($bitmap)
-          $graphics.CopyFromScreen($screen.Location, [Drawing.Point]::Empty, $screen.Size)
-          $bitmap.Save("screenshot-debug2.png")
-        shell: powershell
+      - uses: OrbitalOwen/desktop-screenshot-action@0.1
+        with:
+          file-name: "screenshot-debug2.jpg"
 
       - name: list directory
         run: |
@@ -118,4 +100,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: screenshots
-          path: screenshot-*.png
+          path: screenshot-*.*
