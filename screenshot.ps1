@@ -10,7 +10,7 @@ $version = (Get-Content torf_gui/version.py | Select-String -Pattern "__version_
 $originalProcess = Start-Process python -ArgumentList "torf_gui/gui.py" -WindowStyle Hidden -PassThru
 
 # Wait for the new process to start
-Start-Sleep -Seconds 5
+Start-Sleep -Seconds 15
 
 # Get the new Python process
 $newProcess = Get-Process -Name python | Where-Object { $_.Id -ne $originalProcess.Id }
