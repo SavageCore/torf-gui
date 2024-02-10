@@ -14,7 +14,7 @@ $version = (Get-Content torf_gui/version.py | Select-String -Pattern "__version_
 Write-Host "Version: $version"
 
 # Start the Python script
-python "torf_gui/gui.py" &
+Start-Process python "torf_gui/gui.py"
 
 Write-Host "Waiting for the process to start..."
 
@@ -80,7 +80,7 @@ public class ScreenCapture {
         return bitmap;
     }
 }
-"@ -ReferencedAssemblies System.Drawing, System.Windows.Forms
+"@ -ReferencedAssemblies System.Drawing, System.Drawing.Primitives System.Windows.Forms
 
 # Capture the window screenshot
 
