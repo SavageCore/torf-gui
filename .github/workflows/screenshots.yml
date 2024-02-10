@@ -38,6 +38,22 @@ jobs:
           Stop-Process -Name Explorer
         shell: powershell
 
+      # Debug capture the entire screen
+      - name: Debug capture the entire screen
+        run: |
+          $screen = [Windows.Forms.Screen]::PrimaryScreen.Bounds
+          $bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height
+          $graphics = [Drawing.Graphics]::FromImage($bitmap)
+          $graphics.CopyFromScreen($screen.Location, [Drawing.Point]::Empty, $screen.Size)
+          $bitmap.Save("screenshot-debug0.png")
+        shell: powershell
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: screenshot-*.png
+
       - name: Run app and take screenshot (Light mode)
         run: |
           .\screenshot.ps1 light
