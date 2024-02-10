@@ -14,7 +14,7 @@ $version = (Get-Content torf_gui/version.py | Select-String -Pattern "__version_
 Write-Host "Version: $version"
 
 # Start the Python script and keep a reference to the spawned process to close it later
-$originalProcess = Start-Process python -ArgumentList "torf_gui/gui.py" -WindowStyle Hidden -PassThru
+python "torf_gui/gui.py"
 
 Write-Host "Waiting for the process to start..."
 
