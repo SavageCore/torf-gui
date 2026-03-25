@@ -88,5 +88,7 @@ ENV/
 # Rope project settings
 .ropeproject
 
+tmp/
+
 # pytest
 .pytest_cache/
