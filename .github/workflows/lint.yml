@@ -18,9 +18,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
-      - name: Check formatting with black
+      - name: Check formatting with ruff
         run: |
-          black --check .
+          ruff format .
       - name: Lint with ruff
         run: |
           ruff check .

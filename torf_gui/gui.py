@@ -645,7 +645,10 @@ def main():
     try:
         qdarktheme.enable_hi_dpi()
 
-        app = QApplication(sys.argv + ["-platform", "windows:darkmode=2"])
+        if sys.platform == "win32":
+            app = QApplication(sys.argv + ["-platform", "windows:darkmode=2"])
+        else:
+            app = QApplication(sys.argv)
         app.setAttribute(
             QtCore.Qt.ApplicationAttribute.AA_DisableWindowContextHelpButton
         )
