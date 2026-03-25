@@ -1,5 +1,9 @@
 Changelog
 =========
+0.4.2
+-----
+* Fix for crash on start-up for non Windows systems
+
 0.4.1
 -----
 * New build for pypi, complained the file already existed
