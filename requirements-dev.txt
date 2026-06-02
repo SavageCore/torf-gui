@@ -1,10 +1,10 @@
 humanfriendly>=10.0
-torf>=4.2.4
+torf>=4.3.1
 PyQt5>=5.15.9
 pyqtdarktheme>=2.1.0
-pyinstaller>=5.13.2
-pytest-qt>=4.2.0
-pre-commit>=3.4.0
+pyinstaller>=6.20.0
+pytest-qt>=4.5.0
+pre-commit>=4.6.0
 ruff>=0.0.289
-twine>=4.0.2
+twine>=6.2.0
 wheel>=0.41.2
