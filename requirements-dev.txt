@@ -5,6 +5,6 @@ pyqtdarktheme>=2.1.0
 pyinstaller>=6.20.0
 pytest-qt>=4.5.0
 pre-commit>=4.6.0
-ruff>=0.0.289
+ruff>=0.15.16
 twine>=6.2.0
 wheel>=0.41.2
