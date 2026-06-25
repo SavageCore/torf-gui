@@ -31,7 +31,7 @@ jobs:
             CMD_BUILD: pyinstaller -F -w -n torf-gui-win64 torf_gui/gui.py
             OUT_FILE_NAME: torf-gui-win64.exe
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Set up Python 3.x
         uses: actions/setup-python@v6
         with:
