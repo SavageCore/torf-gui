@@ -1,0 +1,113 @@
+name: Generate Screenshots
+
+on:
+  pull_request:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  screenshot:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v5
+        with:
+          python-version: ">=3.7 <3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install .
+        shell: powershell
+
+      - name: Increase resolution
+        run: |
+          Set-DisplayResolution -Width 1920 -Height 1080 -Force
+        shell: powershell
+
+      - name: Hide taskbar
+        run: |
+          $location = @{Path = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3'; Name = 'Settings'}
+          $value = Get-ItemPropertyValue @location
+          $value[8] = 123
+          Set-ItemProperty @location $value
+          Stop-Process -Name Explorer
+        shell: powershell
+
+      # Debug capture the entire screen
+      - uses: OrbitalOwen/desktop-screenshot-action@0.1
+        with:
+          file-name: "screenshot-debug0.jpg"
+
+      # - name: Upload screenshots
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: screenshots
+      #     path: screenshot-*.png
+
+      # - name: Run app and take screenshot (Light mode)
+      #   run: |
+      #     .\screenshot.ps1 light
+      #   shell: powershell
+
+      - name: Run app
+        run: |
+          Start-Process -NoNewWindow -FilePath "python" -ArgumentList "torf_gui/gui.py"
+        shell: powershell
+
+      - name: Wait for app to start
+        run: |
+          Start-Sleep -s 5
+        shell: powershell
+
+      # Debug capture the entire screen
+      - uses: OrbitalOwen/desktop-screenshot-action@0.1
+        with:
+          file-name: "screenshot-debug1.jpg"
+
+      # - name: Upload screenshots
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: screenshots
+      #     path: screenshot-*.png
+
+      - name: Set dark mode
+        run: |
+          $darkModeReg = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize"
+          Set-ItemProperty -Path $darkModeReg -Name "AppsUseLightTheme" -Value 0
+        shell: powershell
+
+      # - name: Run app and take screenshot (Dark mode)
+      #   run: |
+      #     .\screenshot.ps1 dark
+      #   shell: powershell
+
+      - name: Run app
+        run: |
+          Start-Process -NoNewWindow -FilePath "python" -ArgumentList "torf_gui/gui.py"
+        shell: powershell
+
+      - name: Wait for app to start
+        run: |
+          Start-Sleep -s 5
+        shell: powershell
+
+      # Debug capture the entire screen
+      - uses: OrbitalOwen/desktop-screenshot-action@0.1
+        with:
+          file-name: "screenshot-debug2.jpg"
+
+      - name: list directory
+        run: |
+          Get-ChildItem
+        shell: powershell
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: screenshot-*.*
